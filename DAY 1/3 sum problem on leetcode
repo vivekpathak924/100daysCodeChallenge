@@ -1,0 +1,29 @@
+from itertools import combinations
+
+class Solution:
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        _map = self.get_map(nums)
+
+        results = set()
+        seen = set()
+        for i, j in combinations(range(len(nums)), 2):
+            target = -nums[i] - nums[j]
+            pair = tuple(sorted([nums[i], nums[j]]))
+            if target in _map and pair not in seen and _map[target] - set([i, j]):
+                seen.add(pair)
+                results.add(tuple(sorted([target, nums[i], nums[j]])))
+        return [list(result) for result in results]
+
+    @staticmethod
+    def get_map(nums):
+        _map = {}
+        for index, num in enumerate(nums):
+            if num in _map:
+                _map[num].add(index)
+            else:
+                _map[num] = set([index])
+        return _map
