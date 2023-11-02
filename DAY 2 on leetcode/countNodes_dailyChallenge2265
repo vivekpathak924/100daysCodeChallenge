@@ -1,0 +1,20 @@
+class Solution {
+    pair<int,int> function(TreeNode* node, int& count){
+        if(node==NULL) return {0,0};
+
+        auto left = function(node->left, count);
+        auto right= function(node->right, count);
+        int sum = left.first + right.first + node->val;
+        int ecount = left.second + right.second + 1;
+        
+        if( sum/ecount == node->val) count++ ;
+
+        return {sum,ecount};
+    }
+public:
+    int averageOfSubtree(TreeNode* root) {
+        int count=0;
+        function(root , count);
+        return count;
+    }
+};
