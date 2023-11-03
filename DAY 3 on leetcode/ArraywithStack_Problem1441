@@ -1,0 +1,19 @@
+class Solution {
+    public List<String> buildArray(int[] target, int n) {
+       List<String> result = new ArrayList<String>();
+        int nt = 1;
+        for(int i=1;i<=target.length;i++){
+            if(target[i-1] != nt ){
+                int cnt = target[i-1] - nt;
+                while(cnt-- > 0){
+                    result.add("Push");
+                    result.add("Pop");
+                }
+            }
+            result.add("Push");
+            nt = target[i-1] + 1;
+        }
+
+        return result; 
+    }
+}
