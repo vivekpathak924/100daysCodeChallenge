@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int getLastMoment(int n, vector<int>& left, vector<int>& right) {
+        int result = 0;
+
+        sort(left.begin(), left.end(), greater<int>());
+        sort(right.begin(), right.end());
+
+        if(left.size() != 0 && left.back() == 0) left.pop_back();
+        if(right.size() != 0 && right.back() == n) right.pop_back();
+        while(left.size() != 0 && right.size() != 0) {
+            result=result+1;
+            for(int i = 0; i < left.size(); i++) 
+                left[i]--;
+            for(int i = 0; i < right.size(); i++) 
+                right[i]++;
+            if(left.back() == 0) 
+                left.pop_back();
+            if(right.back() == n) 
+                right.pop_back();
+        }
+
+        if (left.size() != 0) 
+            result = result + left.front();
+        else if (right.size() != 0) 
+            result = result + n - right.front();
+
+        return result;
+    }
+};
