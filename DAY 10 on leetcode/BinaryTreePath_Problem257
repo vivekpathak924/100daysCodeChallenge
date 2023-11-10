@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> paths;
+        stack<TreeNode*> nodeStack;
+        stack<string> pathStack;
+        nodeStack.push(root);
+        pathStack.push("");
+        while (!nodeStack.empty())
+        {
+            TreeNode *node = nodeStack.top();
+            nodeStack.pop();
+            string path = pathStack.top();
+            pathStack.pop();
+            if (node)
+            {
+                path += to_string(node->val);
+                if (!node->left && !node->right)
+                    paths.push_back(path);
+                else
+                {
+                    path += "->";
+                    nodeStack.push(node->left);
+                    pathStack.push(path);
+                    nodeStack.push(node->right);
+                    pathStack.push(path);
+                }
+            }
+        }
+        return paths;
+    }
+};
