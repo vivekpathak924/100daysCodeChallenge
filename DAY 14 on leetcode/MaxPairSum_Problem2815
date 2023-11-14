@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        int maxResult = -1;
+        int arr[10] = {};
+        int size = nums.size();
+        for(int i=0; i < size; i++){
+            int maxD = maxDigit(nums[i]);
+
+            if(arr[maxD])
+            {
+                maxResult = max(maxResult, arr[maxD] + nums[i]);
+            }
+            arr[maxD] = max(arr[maxD], nums[i]); 
+        }        
+        return maxResult;
+    }
+    
+    int maxDigit(int num)
+    {
+        int maxDigitVal = 0;
+        while(num > 0){
+        maxDigitVal = max(maxDigitVal, num % 10);
+            num = num/10;
+
+        }
+        return maxDigitVal;
+    }
+};
