@@ -1,0 +1,33 @@
+class Solution {
+ 
+public:
+ 
+    int findTheLongestBalancedSubstring(string s) {
+         
+        int cnt1=0,cnt2=0,result=0;
+         
+        for(auto x:s)
+        {
+            if(x=='1')
+            {
+                cnt1++;
+            }
+            else
+            {
+                if(cnt1==0)
+                {
+                    cnt2++;
+                    continue;
+                }
+                 
+                result=max(result,min(cnt1,cnt2)*2);
+                cnt1=0;
+                cnt2=1;
+            }
+        }
+         
+        result=max(result,min(cnt1,cnt2)*2);
+         
+        return result;
+    }
+};
