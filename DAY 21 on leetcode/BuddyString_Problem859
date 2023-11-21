@@ -1,0 +1,30 @@
+class Solution {
+    public boolean buddyStrings(String s, String goal) {
+        int pointer_s = -1;
+        int pointer_goal = -1;
+        if (s == null || goal == null || s.length() != goal.length()){
+            return false;
+        }
+
+        int difference = 0;
+        boolean duplicate = false;
+        int[] counter = new int[26];
+        for (int i = 0; i < s.length(); i++)  {
+            if (s.charAt(i) != goal.charAt(i)) {
+                if (pointer_s == -1) {
+                    pointer_s = i;
+                } 
+                else if (pointer_goal == -1) {
+                    pointer_goal = i;
+                } 
+                difference ++;
+            } else {
+                counter[s.charAt(i) - 'a']++;
+                if (counter[s.charAt(i) - 'a'] >= 2) {
+                    duplicate = true;
+                }
+            }
+        }
+        return (difference == 0 && duplicate) || (difference == 2 && s.charAt(pointer_s) == goal.charAt(pointer_goal) && s.charAt(pointer_goal) == goal.charAt(pointer_s));
+    }
+} 
