@@ -1,0 +1,21 @@
+class Solution:
+    def answerQueries(self, nums, queries):
+
+        nums.sort()
+
+        def ElementsLessThan(query):
+
+            sum = 0
+            for i, num in enumerate(nums):
+                sum += num
+                if sum > query:
+                    return i
+            return len(nums)
+
+        return [ElementsLessThan(query) for query in queries]
+        """
+        :type nums: List[int]
+        :type queries: List[int]
+        :rtype: List[int]
+        """
+        
