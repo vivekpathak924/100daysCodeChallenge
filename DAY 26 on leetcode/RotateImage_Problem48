@@ -1,0 +1,16 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix){
+        for (int minimum = 0; minimum < matrix.size() / 2; ++minimum){
+            const int maximum = matrix.size() - minimum - 1;
+            for (int i = minimum; i < maximum; ++i) {
+                const int offset = i - minimum;
+                const int top = matrix[minimum][i];
+                matrix[minimum][i] = matrix[maximum - offset][minimum];
+                matrix[maximum - offset][minimum] = matrix[maximum][maximum - offset];
+                matrix[maximum][maximum - offset] = matrix[i][maximum];
+                matrix[i][maximum] = top;
+            }
+        }
+  }
+};
