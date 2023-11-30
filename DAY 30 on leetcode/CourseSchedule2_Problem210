@@ -1,0 +1,38 @@
+class Solution(object):
+    def findOrder(self, numCourses , prerequisites) :
+        prereq = { lt:[] for lt in range(numCourses) }
+        for crs, pre in prerequisites:
+            prereq[crs].append(pre)
+            
+        result = []
+        visited , cycles = set() , set()
+        def dfs(crs):
+            if crs in cycles:
+                return False
+            if crs in visited:
+                return True
+            
+            cycles.add(crs)
+            
+            for pre in prereq[crs]:
+                if dfs(pre)==False:
+                    return False
+            cycles.remove(crs)
+            
+            visited.add(crs)
+            result.append(crs)
+            return True
+        
+        for lt in range(numCourses):
+            if dfs(lt)==False:
+                return []
+        
+        return result
+        
+            
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: List[int]
+        """
+        
