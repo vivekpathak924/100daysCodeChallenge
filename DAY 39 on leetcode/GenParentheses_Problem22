@@ -1,0 +1,29 @@
+class Solution(object):
+    def generateParenthesis(self, n):
+        
+        stack = []
+        result = []
+        
+        def btrack (open, closed):
+            if open == closed == n:
+                result.append("".join(stack))
+                return
+            
+            if open < n :
+                stack.append("(")
+                btrack(open +1 , closed)
+                stack.pop()
+                
+            if closed < open :
+                stack.append(")")
+                btrack(open , closed +1)
+                stack.pop()
+                
+        btrack(0,0)
+        return result
+    
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        
