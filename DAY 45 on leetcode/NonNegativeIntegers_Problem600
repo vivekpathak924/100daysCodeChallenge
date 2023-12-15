@@ -1,0 +1,43 @@
+class Solution {
+
+    private int[] binaryArray = new int[33];
+   
+    private int[][] dp = new int[33][2];
+
+    public int findIntegers(int n) {
+        int len = 0;
+        while (n > 0) {
+            binaryArray[++len] = n & 1;
+            n >>= 1;
+        }
+      
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+        return dfs(len, 0, true);
+    }
+
+    private int dfs(int pos, int prevBitSet, boolean isLimit) {
+        
+        if (pos <= 0) {
+            return 1;
+        }
+        
+        if (!isLimit && dp[pos][prevBitSet] != -1) {
+            return dp[pos][prevBitSet];
+        }
+       
+        int upperLimit = isLimit ? binaryArray[pos] : 1;
+        int count = 0;
+        
+        for (int i = 0; i <= upperLimit; ++i) {
+            if (!(prevBitSet == 1 && i == 1)) { 
+                count += dfs(pos - 1, i, isLimit && i == upperLimit);
+            }
+        }
+        if (!isLimit) {
+            dp[pos][prevBitSet] = count;
+        }
+        return count;
+    }
+}
