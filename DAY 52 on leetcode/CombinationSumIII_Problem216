@@ -1,0 +1,26 @@
+class Solution {
+public:
+  vector<vector<int>> combinationSum3(int k, int n) {
+
+    vector<std::vector<int>> result;
+    vector<int> path;
+    backtrack(k, n, 1, result, path);
+    return result;
+  }
+private:
+  void backtrack(int k, int target, int start, std::vector<std::vector<int>>& result, vector<int>& path){
+    if(k < 0 || target < 0){
+      return;
+    }
+
+    if (k == 0 && target == 0){
+      result.push_back(path);
+    }
+
+    for(int i = start; i < 10; i++){
+      path.push_back(i);
+      backtrack(k - 1, target - i, i + 1, result, path);
+      path.pop_back();
+    }
+  }
+};
