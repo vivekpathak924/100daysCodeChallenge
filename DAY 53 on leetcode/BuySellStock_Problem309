@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int info(int i,vector <int>&Price ,int cont, vector<vector<int>>&temp){
+        if(i>=Price.size())
+            return 0;
+        if(temp[i][cont]!=-1)
+            return temp[i][cont];
+        if(cont==1){
+            int op2 = Price[i]+info(i+2, Price, 0,temp);
+            int op3= info(i+1, Price , 1, temp);
+            return temp[i][cont]= max(op2,op3);
+        }
+        else{
+            int op1= -Price[i]+ info(i+1,Price,1,temp);
+            int op3= info(i+1, Price, 0,temp);
+            return temp[i][cont]=max(op1,op3);
+        }
+            
+    }
+    
+    int maxProfit(vector<int>& prices) {
+        vector<vector<int>> temp(prices.size()+1, vector<int>(2,-1));
+        return info(0,prices,0, temp);
+    }
+};
