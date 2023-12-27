@@ -1,0 +1,18 @@
+class Solution(object):
+    def dailyTemperatures(self, temperatures):
+        result = [0]* len(temperatures)
+        dp = []
+        
+        for i , x in enumerate(temperatures):
+            while dp and x > dp[-1][0]:
+                dpx, dpind = dp.pop()
+                result[dpind] = (i - dpind)
+            
+            dp.append([x,i])
+        return result
+    
+        """
+        :type temperatures: List[int]
+        :rtype: List[int]
+        """
+        
