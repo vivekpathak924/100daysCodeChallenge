@@ -1,0 +1,20 @@
+class Solution(object):
+    def crackSafe(self, n, k):
+        def more(current ,seen , total):
+            if current[-n:] in seen: 
+                return
+            seen.add(current[-n:])
+            if len(seen) == total:
+                return current
+            for i in range(k):
+                nxt = more(current+str(i),seen,total)
+                if nxt:
+                    return nxt
+            seen.remove(current[-n:])
+        return more('0'*n, set(), k**n)
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        
