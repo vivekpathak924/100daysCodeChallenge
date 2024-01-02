@@ -1,0 +1,36 @@
+"""
+# Definition for a QuadTree node.
+class Node(object):
+    def __init__(self, val, isLeaf, topLeft, topRight, bottomLeft, bottomRight):
+        self.val = val
+        self.isLeaf = isLeaf
+        self.topLeft = topLeft
+        self.topRight = topRight
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+"""
+
+class Solution(object):
+    def construct(self, grid):
+        def extra(num,row,col):
+            allSame = True
+            for i in range (num):
+                for j in range (num):
+                    if grid[row][col] != grid[row+i][col+j]:
+                        allSame = False
+                        break
+            if allSame:
+                return Node(grid[row][col], True)
+            
+            num = num//2
+            topLeft = extra(num,row,col)
+            topRight = extra(num,row,col+num)
+            bottomLeft = extra(num,row+num,col)
+            bottomRight = extra(num,row+num,col+num)
+            return Node(0,False, topLeft,topRight,bottomLeft,bottomRight)
+        return extra(len(grid),0,0)
+        """
+        :type grid: List[List[int]]
+        :rtype: Node
+        """
+        
