@@ -1,0 +1,26 @@
+class Solution:
+    def numberOfBoomerangs(self, points: List[List[int]]) -> int:
+            
+        result = 0
+        
+        for a1, b1 in points:
+            
+            dcts = {}
+            
+            for a2, b2 in points:
+                
+                if a1 == a2 and b1 == b2:
+                    continue
+                
+                da = a1 - a2
+                db = b1 - b2
+                d = da * da + db * db
+                
+                if d in dcts:
+                    result += dcts[d]
+                    dcts[d] += 1
+                else:
+                    dcts[d] = 1
+                
+        return result * 2
+        
