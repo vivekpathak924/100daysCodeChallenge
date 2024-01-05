@@ -1,0 +1,39 @@
+class Solution {
+    
+    Random rd;
+    HashMap<Integer , Integer> map;
+    int X;
+
+    public Solution(int n, int[] blacklist) {
+        map = new HashMap();
+        for(int i : blacklist ){
+            map.put(i, -1);
+        }
+        X = n - map.size();
+        for(int m : blacklist){
+            if(m<X){
+                while(map.containsKey(n-1)){
+                    n--;
+                }
+                map.put(m, n-1);
+                n--;
+            }
+        }
+        rd = new Random();
+    }
+    
+    public int pick() {
+        int pk = rd.nextInt(X);
+        if(map.containsKey(pk)){
+            return map.get(pk);
+        }
+        return pk;
+        
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(n, blacklist);
+ * int param_1 = obj.pick();
+ */
