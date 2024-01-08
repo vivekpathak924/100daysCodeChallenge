@@ -1,0 +1,60 @@
+class Pair {
+      int row;
+      int col;
+      int height;
+    
+      Pair(int row, int col, int height) {
+        this.row = row;
+        this.col = col;
+        this.height = height;
+      }
+}
+
+class Solution {
+      public int trapRainWater(int[][] heightMap) {
+            final int m = heightMap.length;
+            final int n = heightMap[0].length;
+            final int[] direc = {0, 1, 0, -1, 0};
+            int ans = 0;
+            PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> a.height - b.height);
+            boolean[][] visited = new boolean[m][n];
+
+            for (int i = 0; i < m; ++i) {
+              pq.offer(new Pair(i, 0, heightMap[i][0]));
+              pq.offer(new Pair(i, n - 1, heightMap[i][n - 1]));
+              visited[i][0] = true;
+              visited[i][n - 1] = true;
+            }
+
+            for (int j = 1; j < n - 1; ++j) {
+              pq.offer(new Pair(0, j, heightMap[0][j]));
+              pq.offer(new Pair(m - 1, j, heightMap[m - 1][j]));
+              visited[0][j] = true;
+              visited[m - 1][j] = true;
+            }
+
+            while (!pq.isEmpty()) {
+                  int i = pq.peek().row;
+                  int j = pq.peek().col;
+                  int h = pq.poll().height;
+                  for (int k = 0; k < 4; ++k) {
+                    int x = i + direc[k];
+                    int y = j + direc[k + 1];
+                    if (x < 0 || x == m || y < 0 || y == n)
+                        continue;
+                    if (visited[x][y])
+                        continue;
+                    if (heightMap[x][y] < h) {
+                        ans += h - heightMap[x][y];
+                        pq.offer(new Pair(x, y, h));
+                    } 
+                    else {
+                        pq.offer(new Pair(x, y, heightMap[x][y]));
+                    }
+                    visited[x][y] = true;
+                  }
+            }
+
+            return ans;
+      }
+}
