@@ -1,0 +1,24 @@
+class Solution(object):
+    def removeDuplicates(self, nums):
+        
+        ls , rs = 0 , 0
+        
+        while rs < len(nums):
+            c = 1
+            
+            while rs+1 < len(nums) and nums[rs] == nums[rs+1]:
+                rs += 1
+                c +=1
+                
+            for x in range(min(2,c)):
+                nums[ls] = nums[rs]
+                ls +=1
+                
+            rs +=1
+            
+        return ls
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
