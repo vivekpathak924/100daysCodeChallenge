@@ -1,0 +1,45 @@
+class Solution {
+public:
+    bool finishDone(int v,vector<bool>&reach, vector<bool>&nreach, vector<int>adj[]){
+        reach[v] = true;
+        nreach[v] = true;
+        
+        vector<int> value = adj[v];
+        for(auto m : value){
+            if(!reach[m]){
+                if(finishDone(m,reach,nreach,adj)){
+                    return true;
+                }
+            }
+            else if(reach[m] && nreach[m]){
+                return true;
+            }
+        }
+        
+        nreach[v] = false;
+        return false;
+    }
+    bool canFinish(int nCs, vector<vector<int>>& preq) {
+        
+        int num = nCs;
+        vector<bool>reach (num,false), nreach(num,false);
+        
+        vector<int>adj[num];
+        
+        for(auto i : preq){
+            vector<int>val = i;
+            int x1 = val[0];
+            int x2 = val[1];
+            adj[x1].push_back(x2);
+        }
+        
+        for( int y=0; y<num; y++){
+            if(!reach[y]){
+                if(finishDone(y,reach,nreach,adj))
+                    return false;
+            }
+        }
+        
+        return true;
+    }
+};
