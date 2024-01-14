@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool canCross(vector<int>& stones) {
+        int n = stones.size();
+        vector<vector<bool>>DFS(n, vector<bool>(n + 1));
+        DFS[0][1] = true;
+
+        for (int i = 1; i < n; ++i)
+            for (int j = 0; j < i; ++j) {
+                int X = stones[i] - stones[j];
+                if (X <= n && DFS[j][X]) {
+                    DFS[i][X - 1] = true;
+                    DFS[i][X] = true;
+                    DFS[i][X + 1] = true;
+                }
+            }
+
+        return ranges::any_of(DFS.back(), [](bool val) { return val; });
+    }
+};
