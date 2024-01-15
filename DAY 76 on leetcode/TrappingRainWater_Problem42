@@ -1,0 +1,28 @@
+class Solution(object):
+    def trap(self, height):
+        
+        sze = len(height)
+        maxL = [0] * sze
+        maxR = [0] * sze
+        maxL[0] = height[0]
+        maxR[sze-1] = height[sze-1]
+
+        i = 1
+        j = sze-2
+        while i < sze:
+            maxL[i] = max(maxL[i-1], height[i]) 
+            maxR[j] = max(maxR[j+1], height[j]) 
+            i += 1
+            j -= 1
+            
+        ans = 0
+        
+        for i in range(0, sze):
+            ans += max(0, min(maxL[i], maxR[i]) - height[i])
+
+        return ans
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        
