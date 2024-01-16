@@ -1,0 +1,44 @@
+class Solution {
+    int[][] dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, -1}, {-1, 1}, {1, 1}, {-1, -1}};
+    public char[][] updateBoard(char[][] board, int[] click) {    
+        df(board, click[0], click[1]);
+        return board;
+    }
+    
+    private void df(char board[][], int x, int y) {
+        if (!press(x, y, board)) {
+            return;
+        }
+        
+        if (board[x][y] == 'M') {
+            board[x][y] = 'X';
+        }
+        
+        if (board[x][y] == 'E') {
+            int mCount = countBoard(board, x, y);
+            if (mCount == 0) {
+                board[x][y] = 'B';
+                for (int dir[] : dirs) {
+                    df(board, x + dir[0], y + dir[1]);
+                }
+            }
+            else {
+                board[x][y] = (char) (mCount + '0');
+            }
+        }    
+    }
+    
+    private boolean press(int x, int y, char[][] board) {
+        return !(x  <  0 || x >= board.length || y < 0 || y >= board[0].length);
+    }
+    
+    private int countBoard(char board[][], int x, int y) {
+        int count = 0;
+        for (int[] dir : dirs) {
+            if (press(x + dir[0], y + dir[1], board) && board[x + dir[0]][y + dir[1]] == 'M') {
+                count++;
+            }
+        }
+        return count;
+    }
+}
