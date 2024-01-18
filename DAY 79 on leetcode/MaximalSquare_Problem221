@@ -1,0 +1,27 @@
+class Solution(object):
+    def maximalSquare(self, matrix):
+        
+        def getminSquare ( x, y):
+            if(x==0 or y==0):
+                return 0
+            return min(sqlen[x-1][y], sqlen[x-1][y-1], sqlen[x][y-1])
+        
+        sqSide = 0
+        
+        row = len(matrix)
+        col = len(matrix[0])
+        
+        sqlen = [[0 for _ in range (col)] for _ in range (row)]
+        
+        for i in range (row):
+            for j in range (col):
+                if matrix[i][j]=="1":
+                    sqlen[i][j] = 1 + getminSquare(i,j)
+                    sqSide = max(sqSide, sqlen[i][j])
+                    
+        return (sqSide * sqSide)
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        
