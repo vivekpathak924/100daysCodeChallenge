@@ -1,0 +1,41 @@
+class Solution {
+public:
+    
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        
+        unordered_map<string, vector<string>> map;
+        
+        for(string &str : strs) {
+            string s = gen(str);
+            
+            map[s].push_back(str);
+        }
+        
+        vector<vector<string>> result;
+        for(auto &it : map) {
+            result.push_back(std::move(it.second));
+        }
+        
+        return result;
+        
+    }
+    
+    string gen(string &str) {
+        int count[26] = {0};
+        
+        for(char &ch : str) {
+            count[ch-'a']++;
+        }
+        
+        string s;
+        
+        for(int i = 0; i<26; i++) {
+            
+            if(count[i] > 0) {
+                s += string(count[i], i+'a');
+            }
+        }
+        
+        return s;
+    }
+};
