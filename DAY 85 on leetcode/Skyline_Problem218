@@ -1,0 +1,48 @@
+
+class Solution:
+  def getSkyline(self, buildings):
+    n = len(buildings)
+    if n == 0:
+      return []
+    if n == 1:
+      l, r, h = buildings[0]
+      return [[l, h], [r, 0]]
+
+    l = self.getSkyline(buildings[:n // 2])
+    r = self.getSkyline(buildings[n // 2:])
+    return self._merge(l, r)
+
+  def _merge(self, left, right):
+    res = []
+    i = 0  
+    j = 0  
+    lY = 0
+    rY = 0
+
+    while i < len(left) and j < len(right):
+      if left[i][0] < right[j][0]:
+        lY = left[i][1] 
+        self.addPT(res, left[i][0], max(left[i][1], rY))
+        i += 1
+      else:
+        rY = right[j][1] 
+        self.addPT(res, right[j][0], max(right[j][1], lY))
+        j += 1
+
+    while i < len(left):
+      self.addPT(res, left[i][0], left[i][1])
+      i += 1
+
+    while j < len(right):
+      self.addPT(res, right[j][0], right[j][1])
+      j += 1
+
+    return res
+
+  def addPT(self, result, x, y):
+    if result and result[-1][0] == x:
+      result[-1][1] = y
+      return
+    if result and result[-1][1] == y:
+      return
+    result.append([x, y])
