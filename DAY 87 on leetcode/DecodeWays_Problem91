@@ -1,0 +1,24 @@
+class Solution {
+    public int numDecodings(String s) {
+        int list[] = new int[s.length() + 1];
+        
+        list[0] = 1;
+        if(s.charAt(0)=='0')
+            list[1] = 0;
+        else
+            list[1] = 1;
+        
+        for(int i=2;i<list.length;i++){
+            int a = Integer.valueOf(s.substring(i-1,i));
+            int b = Integer.valueOf(s.substring(i-2,i));
+            
+            if(a >= 1 && a <= 9)
+                list[i] = list[i-1];
+            if(b >= 10 && b <= 26)
+                list[i]+= list[i-2];
+            
+        }
+        
+        return list[list.length -1];
+    }
+}
