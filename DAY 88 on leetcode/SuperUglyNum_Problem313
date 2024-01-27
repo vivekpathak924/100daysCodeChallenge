@@ -1,0 +1,22 @@
+class Solution(object):
+    def nthSuperUglyNumber(self, n, primes):
+        num = len(primes)
+        tmps = [1]
+        k = [0] * num
+
+        while len(tmps) < n:
+          nexts = [0] * num
+          for i in range(num):
+            nexts[i] = tmps[k[i]] * primes[i]
+          next = min(nexts)
+          for i in range(num):
+            if next == nexts[i]:
+              k[i] += 1
+          tmps.append(next)
+
+        return tmps[-1]
+        """
+        :type n: int
+        :type primes: List[int]
+        :rtype: int
+        """
