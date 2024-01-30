@@ -1,0 +1,17 @@
+class Solution {
+  String breakPalindrome(String palindrome) {
+    int num = palindrome.length;
+    List<String> pal = palindrome.split("");
+    if (num == 1) {
+      return "";
+    }
+    for (int i = 0; i < num ~/ 2; i++) {
+      if (pal[i] != String.fromCharCode(97)) {
+        pal[i] = String.fromCharCode(97);
+        return pal.join();
+      }
+    }
+    pal[num - 1] = String.fromCharCode(98);
+    return pal.join();
+  }
+}
