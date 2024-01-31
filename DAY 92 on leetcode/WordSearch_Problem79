@@ -1,0 +1,55 @@
+class Solution {
+    
+  late List<List<bool>> reached;
+  late int n;
+  late int m;
+
+  bool exist(List<List<String>> board, String word) {
+    n = board.length;
+    m = board[0].length;
+      
+    reached = List.filled(n, false).map((e) => List.filled(m, false)).toList();
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        if (board[i][j] == word[0]) {
+          if (df(i, j, 0, board, word)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  bool df(int i, int j, int c, List<List<String>> board, String word) {
+      
+    if (i < 0 || i >= n || j < 0 || j >= m) {
+      return false;
+    }
+
+    if (reached[i][j]) {
+      return false;
+    }
+
+    if (word[c] != board[i][j]) {
+      return false;
+    }
+
+    if (c == word.length - 1) {
+      return true;
+    }
+
+    reached[i][j] = true;
+
+    c++;
+
+    if (df(i + 1, j, c, board, word) || df(i, j + 1, c, board, word) || df(i - 1, j, c, board, word) || df(i, j - 1, c, board, word)){
+      return true;
+    }
+
+    reached[i][j] = false;
+
+    return false;
+  }
+}
