@@ -1,0 +1,26 @@
+class Solution {
+    int bagOfTokensScore(List<int> tokens, int power) {
+        int pts = 0;
+        int t = 0, num = tokens.length - 1;
+        tokens.sort((x, y) => x - y);
+        if (num + 1 == 0 || power < tokens[0]) 
+            return 0;
+
+        while (t <= num) {
+            if (power >= tokens[t]) {
+                pts++;
+                power -= tokens[t++];
+            } 
+            else {
+                if (num - t >= 1) {
+                    power += tokens[num--];
+                    pts--;
+                } 
+                else
+                    break;
+            }
+        }
+        
+        return pts;
+    }
+}
