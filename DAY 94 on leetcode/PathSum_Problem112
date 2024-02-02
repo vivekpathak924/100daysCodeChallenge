@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *   int val;
+ *   TreeNode? left;
+ *   TreeNode? right;
+ *   TreeNode([this.val = 0, this.left, this.right]);
+ * }
+ */
+class Solution {
+    bool hasPathSum(TreeNode? root, int targetSum) {
+        return compute(root, targetSum, 0) == 1;
+    }
+
+    int compute(TreeNode? r, int tSum, int sum) {
+        if (r == null) 
+            return 0;
+
+        int currSum = r.val + sum;
+        
+        if (r.left == null && r.right == null && currSum == tSum)
+            return 1;
+
+        if(compute(r.left, tSum, currSum) == 1)
+            return 1;
+        else
+            return compute(r.right, tSum, currSum);
+    }
+}
