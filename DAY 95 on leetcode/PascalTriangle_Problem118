@@ -1,0 +1,15 @@
+class Solution {
+  List<List<int>> generate(int numRows) {
+    List<List<int>> pascal = List.filled(numRows, 0).map((e) => List.filled(numRows, 0)).toList();
+    for (var i = 0; i < numRows; i++) {
+      pascal[i] = List.filled(i + 1, 1);
+      for (var j = 1; j < i; j++) {
+        pascal[i][j] = pascal[i - 1][j - 1] + pascal[i - 1][j];
+      }
+      pascal[i][i] = 1;
+    }
+    return pascal;
+  }
+}
+
+
