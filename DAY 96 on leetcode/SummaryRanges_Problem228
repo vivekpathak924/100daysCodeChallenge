@@ -1,0 +1,42 @@
+class Solution {
+    List<String> summaryRanges(List<int> nums) {
+        List<String> res = [];
+        if (nums.length == 0) 
+            return res;
+
+        int a = nums[0];
+        int b = nums[0];
+        int c = nums[0];
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (a == nums[i])
+                c = nums[i];
+            
+            else if (a != nums[i]){
+                
+                if (c == b)
+                  res.add(b.toString());
+                
+                else{
+                  String str1 = b.toString();
+                  String str2 = c.toString();
+                  res.add(str1 + "->" + str2);
+                }
+                a = nums[i];
+                b = nums[i];
+                c = nums[i];
+            }
+            a++;
+        }
+        
+        if (c == b)
+            res.add(b.toString());
+        
+        else{
+            String s1 = b.toString();
+            String s2 = c.toString();
+            res.add(s1 + "->" + s2);
+        }
+        return res;
+    }
+}
