@@ -1,0 +1,20 @@
+class Solution {
+    String countAndSay(int n) {
+        String str = "1";
+        for (int i = 2; i <= n; i++) {
+             StringBuffer sb = StringBuffer();
+             List<String> prev = str.split("");
+             int lft = 0;
+             int rht = 0;
+             while (rht < prev.length) {
+                 while (rht < prev.length && prev[lft] == prev[rht]) {
+                    rht++;
+                 }
+                 sb.write("" + (rht - lft).toString() + prev[lft]);
+                 lft = rht;
+             }
+             str = sb.toString();
+        }
+        return str;
+    }
+}
