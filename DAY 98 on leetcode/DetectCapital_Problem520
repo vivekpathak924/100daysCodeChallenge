@@ -1,0 +1,10 @@
+class Solution {
+    bool detectCapitalUse(String word) {
+        int c = 0;
+        for (String char in word.split('')){
+            if ('Z'.codeUnitAt(0) - char.codeUnitAt(0) >= 0) 
+                c++;
+        }
+        return ((c == 0 || c == word.length) || (c == 1 && 'Z'.codeUnitAt(0) - word.codeUnitAt(0) >= 0));
+    }
+}
